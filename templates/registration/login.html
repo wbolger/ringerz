@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-2">
+  <div class="row">
+    <div class="col">
+      <h5>Please Login</h5>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      {% if form.errors %}
+        <p>Your username and password didn't match. Please try again.</p>
+      {% endif %}
+  
+      {% if next %}
+        {% if user.is_authenticated %}
+          <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+        {% endif %}
+      {% endif %}
+    </div>
+  </div>
+</div>
+<div class="container my-2">
+  <form method="post" action="{% url 'login' %}">
+    {% csrf_token %}
+    <table class="table">
+      <tbody>
+        <tr class="text-center">
+          <th>{{ form.username.label_tag }}</th>
+          <td>{{ form.username }}</td>
+        </tr>
+        <tr class="text-center">
+          <th>{{ form.password.label_tag }}</th>
+          <td>{{ form.password }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <input type="submit" value="Login" class="btn btn-primary btn-block my-2" />
+    <input type="hidden" name="next" value="{{ next }}" />
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'password_reset' %}" class="btn btn-link">Lost password?</a>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a href="{% url 'user-signup' %}" class="btn btn-link">Sign Up</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

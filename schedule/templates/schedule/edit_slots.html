@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<h5>Positions for {{ event }}</h5>
+		</div>
+	</div>
+	<table class="table">
+		<tbody>
+			{% for slot in event.slot_set.all %}
+			<tr>
+				<th scope="row" style="width: 60%">
+					{{ slot.player }}
+				</th>
+				{% if event.total_slots != 1 %}
+					<td style="width: 40%">
+						<a href="{% url 'slot-delete' slot.pk %}" class="btn btn-primary btn-block">Remove</a>
+					</td>
+				{% elif error == True %}
+					<td style="width: 40%">
+						You cannot delte this position. You must have at least one position.
+						<!-- <a href="{% url 'slot-delete' slot.pk %}" class="btn btn-primary btn-block">Remove</a> -->
+					</td>
+				{% endif %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<form action="" method="POST">
+				{% csrf_token %}
+				<input type="submit" value="Add Position" class="btn btn-primary btn-block">
+			</form>
+		</div>
+	</div>
+	<div class="row my-2">
+		<div class="col">
+			<a href="{{ event.get_absolute_url }}" class="btn btn-secondary btn-block">Back To Event</a></p>
+		</div>
+	</div>
+</div>
+{% endblock%}

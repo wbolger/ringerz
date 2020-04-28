@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{{ form.media }}
+
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<h5>Sign up for Ringerz!</h5>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<form action="" method="post"> {% csrf_token %}
+		{{ form.non_field_errors }}
+		<div class="form-group">
+			<label for="{{ form.username.id_for_label }}">Username<span class="req">*</span></label>
+			<!-- {{ form.username.label_tag }} -->
+			{{ form.username }}
+			{{ form.username.errors }}
+			<small class="form-text text-muted">{{ form.username.help_text }}</small>
+		</div>
+		<div class="form-group">
+			{{ form.first_name.label_tag }}
+			{{ form.first_name }}
+			{{ form.first_name.errors }}
+		</div>
+		<div class="form-group">
+			{{ form.last_name.label_tag }}
+			{{ form.last_name }}
+			{{ form.last_name.errors }}
+		</div>
+			<div class="form-group">
+			{{ form.email.label_tag }}
+			{{ form.email }}
+			{{ form.email.errors }}
+			<small class="form-text text-muted">{{ form.email.help_text }}</small>
+		</div>
+		<div class="form-group">
+			{{ form.password1.label_tag }}
+			{{ form.password1 }}
+			{{ form.password1.errors }}
+			<small class="form-text text-muted">{{ form.password1.help_text }}</small>
+		</div>
+		<div class="form-group">
+			{{ form.password2.label_tag }}
+			{{ form.password2 }}
+			{{ form.password2.errors }}
+			<small class="form-text text-muted">{{ form.password2.help_text }}</small>
+		</div>
+		<input type="submit" value="Sign Up" class="btn btn-primary btn-block my-2">
+	</form>
+</div>
+{% endblock %}

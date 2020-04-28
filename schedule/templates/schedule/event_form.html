@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+	
+	{{ form.media }}
+
+	<div class="container my-2">
+		<div class="row">
+			<div class="col">
+				<h5>Create an Event</h5>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<form action="" method="post"> {% csrf_token %}
+			{{ form.non_field_errors }}
+			<div class="form-group">
+				<label for="{{ form.title.id_for_label }}">Event Title<span class="req">*</span></label>
+				{{ form.title }}
+				{{ form.title.errors }}
+			</div>
+			<div class="form-group">
+				<label for="{{ form.sport.id_for_label }}">Sport/Activity<span class="req">*</span></label>
+				{{ form.sport }}
+				{{ form.sport.errors }}
+			</div>
+			<div class="form-group">
+					<label for="{{ form.datetime.id_for_label }}">Date<span class="req">*</span></label>
+					{{ form.datetime }}
+					{{ form.datetime.errors }}
+			</div>
+			<div class="form-group">
+				<label for="{{ form.location.id_for_label }}">Location<span class="req">*</span></label>
+				{{ form.location }}
+				{{ form.location.errors }}
+			</div>
+			<div class="form-group">
+				<label for="{{ form.details.id_for_label }}">Details</label>
+				{{ form.details }}
+				{{ form.details.errors }}
+			</div>
+			<div class="form-group">
+				<label for="{{ form.total_slots.id_for_label }}">Players Needed<span class="req">*</span></label>
+				{{ form.total_slots }}
+				{{ form.total_slots.errors }}
+			</div>
+			<input type="submit" value="Submit" class="btn btn-primary btn-block my-2">
+		</form>
+		<a href="{% url 'event-list' %}" class="btn btn-secondary btn-block my-2">Cancel</a>
+	</div>
+{% endblock %}

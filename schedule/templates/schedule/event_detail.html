@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<!-- Container for event details -->
+	<div class="container my-2">
+		<div class="row">
+			<div class="col-8">
+				<h4>{{ event.title }}</h4>
+			</div>
+			<div class="col">
+				<h5 class="{% if event.status == 'o' %}text-success{% elif event.status == 'c' %}text-danger{% else %}text-warning{% endif %}">{{ event.get_status_display }}</h5>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-8">
+				<strong>Organizer: </strong>{{ event.organizer}}
+			</div>
+			<div class="col-sm">
+				<strong>Activity: </strong>{{ event.sport}}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<strong>Time: </strong>{{ event.datetime }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<strong>Location: </strong>{{ event.location }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<strong>Details: </strong>{{ event.details }}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<strong>Players Needed:</strong> {{ event.total_slots }}
+			</div>
+		</div>
+	</div>
+
+	<!-- Container for slot details -->
+	{% if user == event.organizer%}
+		<div class="container my-3">
+			<div class="row">
+				<div class="col">
+					<h5>Recruited Players</h5>
+				</div>
+			</div>
+			<table class="table table-borderless">
+				<tbody>
+					{% for slot in event.slot_set.all %}
+						<tr>
+							<td class="text-center">{{ slot.player }}</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="container my-2">
+			<div class="row">
+				<div class="col">
+					<a href="{% url 'event-update' event.pk %}" class="btn btn-primary btn-block">Edit Event Details</a>
+				</div>
+			</div>
+			<div class="row my-2">
+				<div class="col">
+					<a href="{% url 'event-list' %}" class="btn btn-secondary btn-block">Go Back</a>
+				</div>
+			</div>
+		</div>
+	{% else %}
+		<div class="container my-3">
+			<div class="row">
+				<div class="col">
+					<h5>Recruited Players</h5>
+				</div>
+			</div>
+			<table class="table table-borderless">
+				<tbody>
+					{% for slot in event.slot_set.all %}
+						{% if slot.player != None %}
+							{% if user == slot.player %}
+								<tr class="text-center">
+									<td>{{ slot.player }}</td>
+									<td><a href="{% url 'slot-remove' slot.pk %}" class="float-center btn btn-primary">Leave Team</a></td>
+								</tr>
+							{% else %}
+								<tr>
+									<td class="text-center" colspan="2">{{ slot.player }}</td>
+								</tr>
+							{% endif %}
+						{% else %}
+							<tr>
+								<td class="text-center" colspan="2">
+									<a href="{% url 'slot-join' slot.pk %}" class="btn btn-success">Position Available</a>
+								</td>
+							</tr>
+						{% endif %}
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endif %}
+{% endblock %}

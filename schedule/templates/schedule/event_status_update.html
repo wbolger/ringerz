@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<div class="container my-2">
+		<div class="row">
+			<div class="col">
+				{% if event.status == 'o' %}
+					<h5>Do you want to cancel this event?</h5>
+				{% elif event.status == 'c' %}
+					<h5>Do you want to reopen this event?</h5>
+				{% endif %}
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<strong>{{ event }}</strong>
+			</div>
+		</div>
+	</div>	
+	<div class="container my-2">
+		<div class="row">
+			<div class="col">
+				<form action="" method="POST">
+					{% csrf_token %}
+					{% if event.status == 'o' %}
+						<input type="submit" value="Cancel Event" class="btn btn-primary btn-danger btn-block">
+					{% elif event.status == 'c' %}
+						<input type="submit" value="Reopen Event" class="btn btn-success btn-block">
+					{% endif %}
+				</form>
+			</div>
+		</div>
+		<div class="row my-2">
+			<div class="col">
+				<a href="{{ event.get_absolute_url }}" class="btn btn-secondary btn-block">Go Back</a>
+			</div>
+		</div>
+	</div>
+{% endblock %}

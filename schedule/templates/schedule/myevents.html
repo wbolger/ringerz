@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<h5>Your Organized Events</h5>
+		</div>
+	</div>
+	{% if events %}
+		<table class="table table-hover">
+			<tbody>
+				{% for event in events %}
+					<tr class="clickable-row" data-url="{{ event.get_absolute_url }}">
+						<th scope="row" style="width: 40%">{{ event.title }}</th>
+						<td style="width: 40%">{{ event.datetime }}</td>
+						<td style="width: 20%" class="{% if event.status == 'o' %}text-success{% elif event.status == 'c' %}text-danger{% else %}text-warning{% endif %}">{{ event.get_status_display }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<div class="row">
+			<div class="col">
+				You have no events scheduled.
+			</div>
+		</div>
+	{% endif %}
+</div>
+
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<h5>Events You Are Attending</h5>
+		</div>
+	</div>
+	{% if slots %}
+		<table class="table table-hover">
+			<tbody>
+				{% for slot in slots %}
+					<tr class="clickable-row" data-url="{{ slot.event.get_absolute_url }}">
+						<th scope="row" style="width: 40%">{{ slot.event.title }}</th>
+						<td style="width: 40%">{{ slot.event.datetime }}</td>
+						<td style="width: 20%" class="{% if slot.event.status == 'o' %}text-success{% elif slot.event.status == 'c' %}text-danger{% else %}text-warning{% endif %}">{{ slot.event.get_status_display }}</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<div class="row">
+			<div class="col">
+				You are not attending any events.
+			</div>
+		</div>
+	{% endif %}
+</div>
+
+<script>
+	jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("url");
+    });
+});
+</script>
+
+
+{% endblock %}

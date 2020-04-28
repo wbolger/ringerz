@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<div class="container my-2">
+		<div class="row">
+			<div class="col">
+				<h2>Events in Your Area</h2>
+			</div>
+		</div>
+	</div>
+	<!-- Search bar -->
+	<div class="container"> 
+		<form action="" method="get">
+			<div class="form-row align-items-center">
+				<div class="col-sm col-md-8">
+				  <input class="form-control textinput textInput" name="q" type="text" placeholder="{% if request.GET.q %}{{ request.GET.q }}{% else %}Search...{% endif %}">
+				</div>
+				<div class="col-sm col-md-4">
+					<input type="submit" value="Search" class="btn btn-primary btn-block my-2">
+				</div>
+			</div>
+		</form>
+		{% if request.GET.q %}
+		<div class="row">
+			<div class="col-xs-4">
+				<a href="{% url 'event-list' %}">Clear search</a>
+			</div>
+		</div>
+		{% endif %}
+	</div>
+	{% if event_list %}
+	  	<!-- Container to hold entire list of events. -->
+	  	<div class="container"> 
+	  		{% for event in event_list %}
+	  			<!-- Each 'row' holds a container which in turn holds an event. -->
+	  			<div class="row my-2">
+	  				<!-- Individual Event container -->
+	  				<div class="col">
+		  				<div class="container border" onclick="location.href='{{ event.get_absolute_url }}'">
+		  					<!-- First row of event container holds the event title and link. -->
+		  					<div class="row flex-nowrap">
+		  						<div class="col-8">
+		  							<h5>{{ event.title }}</h5>
+		  						</div>
+		  						<div class="col">
+									<span class="{% if event.status == 'o' %}text-success{% elif event.status == 'c' %}text-danger{% else %}text-warning{% endif %} float-right">{{ event.get_status_display }}</span>
+								</div>
+		  					</div>
+		  					<!-- Second row contains organizer and sport -->
+		  					<div class="row">
+		  						<div class="col-8">
+		  							{{ event.organizer }}
+		  						</div>
+		  						<div class="col">
+		  							<span class="float-right">{{ event.sport }}</span>
+		  						</div>
+		  					</div>
+		  					<!-- Third holds date and time -->
+		  					<div class="row">
+		  						<div class="col">
+		  							{{ event.datetime }}
+		  						</div>
+		  					</div>
+		  					<!-- Fourth row holds location -->
+		  					<div class="row">
+		  						<div class="col">
+		  							{{ event.location }}
+		  						</div>
+		  					</div>
+		  					<!-- Fifth row holds details -->
+		  					<div class="row">
+		  						<div class="col">
+		  							{{ event.details }}
+		  						</div>
+		  					</div>
+		  					<!-- Sixth and final row holds how many positions are available -->
+		  					<div class="row">
+		  						<div class="col">
+		  							<strong>Positions Available:</strong> {{ event.total_slots }}
+		  						</div>
+		  					</div>
+		  				</div>
+	  				</div>
+	  			</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<div class="container my-2">
+			<div class="row">
+				<div class="col">
+					<h5>There are no events scheduled.</h5>
+				</div>
+			</div>
+		</div>
+	{% endif %}
+{% endblock %}

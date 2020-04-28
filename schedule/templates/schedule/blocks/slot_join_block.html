@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container my-2 text-center">
+	<div class="row">
+		<div class="col">
+			<h5>You cannot join this event position as it is already filled, you have already joined the event, are the event organizer, or the event is no longer open.</h5>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<a href="{% url 'event-list' %}" class="btn btn-link">Go Back To Schedule of Events</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

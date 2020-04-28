@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<h5>Can you not make {{ slot.event }} anymore?</h5>
+		</div>
+	</div>
+</div>
+<div class="container my-2">
+	<div class="row">
+		<div class="col">
+			<form action="" method="POST">
+				{% csrf_token %}
+				<input type="submit" value="Leave Event" class="btn btn-primary btn-block">
+			</form>
+		</div>
+	</div>
+	<div class="row my-2">
+		<div class="col">
+			<a href="{{ slot.event.get_absolute_url }}" class="btn btn-secondary btn-block">Go Back</a>
+		</div>
+	</div>
+</div>
+{% endblock %}
