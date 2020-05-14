@@ -26,7 +26,7 @@ class EventCreateForm(forms.ModelForm):
 	sport		= forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'textinput textInput form-control'}))
 	datetime 	= forms.DateTimeField(widget=DateTimePickerInput(format='%m/%d/%Y %I:%M %p', attrs={'class': 'textinput textInput form-control'}))
 	location	= forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': '555 Fake St, Town, State Zip'}))
-	details		= forms.CharField(max_length=100, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Add any extra details you think are necessary (e.g. Park across the street. Wear a red shirt. etc.).'}))
+	details		= forms.CharField(max_length=1000, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '5', 'placeholder': 'Add any extra details you think are necessary (e.g. Park across the street. Wear a red shirt. etc.).'}))
 	total_slots	= forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'numberinput form-control'}))
 
 	# Prevent a date before the current date from being selected for 'date' field.
@@ -51,7 +51,7 @@ class EventUpdateForm(forms.ModelForm):
 	sport		= forms.CharField(max_length=20, widget=forms.TextInput(attrs={'class': 'textinput textInput form-control'}))
 	datetime 	= forms.DateTimeField(widget=DateTimePickerInput(format='%m/%d/%Y %I:%M %p', attrs={'class': 'textinput textInput form-control'}))
 	location	= forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'textinput textInput form-control', 'placeholder': '555 Fake St, Town, State Zip'}))
-	details		= forms.CharField(max_length=100, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '5'}))
+	details		= forms.CharField(max_length=1000, widget=forms.Textarea(attrs={'class': 'form-control', 'rows': '5'}))
 
 		# Prevent a date before the current date from being selected for 'date' field.
 	def clean_datetime(self):
