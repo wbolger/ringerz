@@ -49,28 +49,28 @@
 		  					<!-- Second row contains organizer and sport -->
 		  					<div class="row">
 		  						<div class="col-8">
-		  							{{ event.organizer }}
+		  							<strong>Organizer: </strong>{{ event.organizer }}
 		  						</div>
 		  						<div class="col">
-		  							<span class="float-right">{{ event.sport }}</span>
+		  							<span class="float-right"><strong>Activity: </strong>{{ event.sport }}</span>
 		  						</div>
 		  					</div>
 		  					<!-- Third holds date and time -->
 		  					<div class="row">
 		  						<div class="col">
-		  							{{ event.datetime }}
+		  							<strong>Time: </strong>{{ event.datetime }}
 		  						</div>
 		  					</div>
 		  					<!-- Fourth row holds location -->
 		  					<div class="row">
 		  						<div class="col">
-		  							{{ event.location }}
+		  							<strong>Location: </strong>{{ event.location }}
 		  						</div>
 		  					</div>
 		  					<!-- Fifth row holds details -->
 		  					<div class="row">
 		  						<div class="col">
-		  							{{ event.details|truncatechars:50 }}
+		  							<strong>Details: </strong>{{ event.details|truncatechars:50 }}
 		  						</div>
 		  					</div>
 		  					<!-- Sixth and final row holds how many positions are available -->
