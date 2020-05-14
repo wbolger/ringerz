@@ -70,7 +70,7 @@
 		  					<!-- Fifth row holds details -->
 		  					<div class="row">
 		  						<div class="col">
-		  							{{ event.details }}
+		  							{{ event.details|truncatechars:50 }}
 		  						</div>
 		  					</div>
 		  					<!-- Sixth and final row holds how many positions are available -->
